@@ -31,9 +31,11 @@ func init() {
 
 	dimensions = make([]awscwtypes.Dimension, 0, len(*dims))
 	for k, v := range *dims {
+		dimName := k
+		dimValue := v
 		dimensions = append(dimensions, awscwtypes.Dimension{
-			Name:  &k,
-			Value: &v,
+			Name:  &dimName,
+			Value: &dimValue,
 		})
 	}
 }
@@ -88,7 +90,7 @@ func reportSucceed(client *awscw.Client) {
 	}
 	_, err := client.PutMetricData(context.Background(), metrics)
 	if err != nil {
-		log(fmt.Sprintf("failed to put metrics: %#v", err))
+		log(fmt.Sprintf("failed to put metrics: %s: %#v", err.Error(), err))
 		return
 	}
 
