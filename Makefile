@@ -2,6 +2,9 @@ GOOS = linux
 GOARCH = arm64
 CGO_ENABLED = 0
 
+.PHONY: all
+all: healthcheck-reporter healthcheck-reporter.sha256sum
+
 healthcheck-reporter:
 	GOOS="$(GOOS)" \
 	GOARCH="$(GOARCH)" \
